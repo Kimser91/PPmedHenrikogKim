@@ -28,35 +28,54 @@ namespace PPmedHenrikogKim
 
         public void MainMenu()
         {
-            Console.WriteLine("Welcome to storeApp what do you wanna do?");
-            Console.WriteLine("1: Search for stores based on price class");
-            Console.WriteLine("2: Search for stores based on type");
-            Console.WriteLine("3: Search for stores based on type AND price");
-            Console.WriteLine("4: Add store to list");
-            string input = Console.ReadLine();
-            switch (input)
+            while (true)
             {
-                case "1":
-                    SearchByPriceClass();
-                    break;
-                case "2":
-                    SearchByType();
-                    break;
-                case "3":
-                    SearchNameAndType();
-                    break;
-                case "4":
-                    AddStore();
-                    break;
-                default:
-                    MainMenu();
-                    break;
+                Console.Clear();
+                Console.WriteLine();
+                Console.WriteLine("Welcome to storeApp what do you wanna do?");
+                Console.WriteLine("1: Search for stores based on price class");
+                Console.WriteLine("2: Search for stores based on type");
+                Console.WriteLine("3: Search for stores based on type AND price");
+                Console.WriteLine("4: Add store to list");
+                Console.WriteLine("5: Print all stores");
+                Console.WriteLine("Q: Quit");
+                string input = Console.ReadLine().ToLower();
+                switch (input)
+                {
+                    case "1":
+                        SearchByPriceClass();
+                        Console.ReadKey();
+                        break;
+                    case "2":
+                        SearchByType();
+                        Console.ReadKey();
+                        break;
+                    case "3":
+                        SearchNameAndType();
+                        Console.ReadKey();
+                        break;
+                    case "4":
+                        AddStore();
+                        Console.ReadKey();
+                        break;
+                    case "5":
+                        PrintAllStores();
+                        Console.ReadKey();
+                        break;
+                    case "q":
+                         return;
+                    default:
+                        MainMenu();
+                        break;
 
+                }
             }
         }
+
+
         void SearchByPriceClass()
         {
-            Console.WriteLine("Waiting for input...");
+            Console.WriteLine("Price Level:");
             var input = Console.ReadLine();
             int i = Convert.ToInt32(input);
             foreach (Store store in stores)
@@ -67,7 +86,7 @@ namespace PPmedHenrikogKim
         }
         void SearchByType()
         {
-            Console.WriteLine("Waiting for input...");
+            Console.WriteLine("Store Type:");
             string input = Console.ReadLine();
             foreach (Store store in stores)
             {
@@ -101,5 +120,38 @@ namespace PPmedHenrikogKim
             stores.Add(store);
             Console.WriteLine(stores.Last()._name);
         }
+        void PrintAllStores()
+        {
+            foreach (Store store in stores)
+            {
+                Console.WriteLine($" Name: {store._name} Type: {store._type} PriceLevel: {store._priceLvl}");
+            }
+        }
+
+        // alternative Search function:
+
+        /* void Search() 
+         {
+             Console.WriteLine("Store Type:");
+             string input1 = Console.ReadLine();
+             Console.WriteLine("Price Level:");
+             string input2 = Console.ReadLine();
+             int int2 = Convert.ToInt32(input2);
+             foreach (Store store in stores)
+             {
+                 if (input1 == store._type && int2 == store._priceLvl)
+                 { Console.WriteLine($" Name: {store._name} Type: {store._type} PriceLevel: {store._priceLvl}"); }
+                 else if (input1 == store._type && int2 == null)
+                 {
+                     Console.WriteLine($" Name: {store._name} Type: {store._type} PriceLevel: {store._priceLvl}");
+                 }
+                 else if (input1 == "" || input2 == null && int2 != null)
+                 {
+                     if (int2 == store._priceLvl) {
+                         Console.WriteLine($" Name: {store._name} Type: {store._type} PriceLevel: {store._priceLvl}");
+                     }
+                 }
+             }
+         }*/
     }
 }
